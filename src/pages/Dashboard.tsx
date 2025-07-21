@@ -1,8 +1,10 @@
 import { useState, useEffect } from 'react';
-import { Plus, FileText, Users, Trash2, ExternalLink } from 'lucide-react';
+import { Plus, FileText, Users, Trash2, ExternalLink, LogOut } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { GradientCard } from '@/components/ui/gradient-card';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
+import { ThemeToggle } from '@/components/ThemeToggle';
 import { getAllBriefings, deleteBriefing } from '@/lib/supabase';
 import { Briefing } from '@/types/briefing';
 import { useToast } from '@/hooks/use-toast';
@@ -13,6 +15,12 @@ const Dashboard = () => {
   const [loading, setLoading] = useState(true);
   const [dialogOpen, setDialogOpen] = useState(false);
   const { toast } = useToast();
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    localStorage.removeItem('isAuthenticated');
+    navigate('/');
+  };
 
   const loadBriefings = async () => {
     try {
@@ -73,12 +81,22 @@ const Dashboard = () => {
       <div className="container mx-auto px-4 py-8">
         {/* Header */}
         <div className="mb-8">
-          <h1 className="text-4xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent mb-2">
-            Dashboard de Briefings
-          </h1>
-          <p className="text-muted-foreground text-lg">
-            Gerencie seus briefings e visualize as respostas dos clientes
-          </p>
+          <div className="flex justify-between items-start mb-4">
+            <div>
+              <h1 className="text-4xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent mb-2">
+                Dashboard de Briefings
+              </h1>
+              <p className="text-muted-foreground text-lg">
+                Gerencie seus briefings e visualize as respostas dos clientes
+              </p>
+            </div>
+            <div className="flex items-center gap-2">
+              <ThemeToggle />
+              <Button variant="outline" size="icon" onClick={handleLogout}>
+                <LogOut className="h-4 w-4" />
+              </Button>
+            </div>
+          </div>
         </div>
 
         {/* Stats Cards */}
