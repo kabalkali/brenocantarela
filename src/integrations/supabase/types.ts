@@ -32,6 +32,33 @@ export type Database = {
         }
         Relationships: []
       }
+      briefings: {
+        Row: {
+          created_at: string
+          description: string | null
+          id: string
+          slug: string
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          description?: string | null
+          id?: string
+          slug: string
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          description?: string | null
+          id?: string
+          slug?: string
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       ceps: {
         Row: {
           cep: string
@@ -76,6 +103,79 @@ export type Database = {
           updated_at?: string
         }
         Relationships: []
+      }
+      questions: {
+        Row: {
+          briefing_id: string
+          created_at: string
+          id: string
+          options: string[] | null
+          order_index: number
+          required: boolean
+          text: string
+          type: string
+        }
+        Insert: {
+          briefing_id: string
+          created_at?: string
+          id?: string
+          options?: string[] | null
+          order_index?: number
+          required?: boolean
+          text: string
+          type: string
+        }
+        Update: {
+          briefing_id?: string
+          created_at?: string
+          id?: string
+          options?: string[] | null
+          order_index?: number
+          required?: boolean
+          text?: string
+          type?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "questions_briefing_id_fkey"
+            columns: ["briefing_id"]
+            isOneToOne: false
+            referencedRelation: "briefings"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      responses: {
+        Row: {
+          answers: Json
+          briefing_id: string
+          created_at: string
+          id: string
+          respondent_email: string | null
+        }
+        Insert: {
+          answers: Json
+          briefing_id: string
+          created_at?: string
+          id?: string
+          respondent_email?: string | null
+        }
+        Update: {
+          answers?: Json
+          briefing_id?: string
+          created_at?: string
+          id?: string
+          respondent_email?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "responses_briefing_id_fkey"
+            columns: ["briefing_id"]
+            isOneToOne: false
+            referencedRelation: "briefings"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       whatsapp_auth_sessions: {
         Row: {
