@@ -193,6 +193,18 @@ const Dashboard = () => {
                       <Button
                         variant="outline"
                         size="sm"
+                        asChild
+                        className="flex-1"
+                      >
+                        <a href={`/briefing/${briefing.slug}/results`}>
+                          <Users className="h-4 w-4 mr-2" />
+                          Ver Respostas
+                        </a>
+                      </Button>
+
+                      <Button
+                        variant="outline"
+                        size="sm"
                         onClick={() => handleDelete(briefing.id, briefing.title)}
                         className="text-destructive hover:text-destructive"
                       >
