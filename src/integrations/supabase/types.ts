@@ -7,7 +7,7 @@ export type Json =
   | Json[]
 
 export type Database = {
-  // Allows to automatically instanciate createClient with right options
+  // Allows to automatically instantiate createClient with right options
   // instead of createClient<Database, { PostgrestVersion: 'XX' }>(URL, KEY)
   __InternalSupabase: {
     PostgrestVersion: "12.2.3 (519615d)"
@@ -29,6 +29,24 @@ export type Database = {
           admin_email?: string
           created_at?: string
           id?: string
+        }
+        Relationships: []
+      }
+      bd_ativo: {
+        Row: {
+          created_at: string
+          id: number
+          num: number | null
+        }
+        Insert: {
+          created_at?: string
+          id?: number
+          num?: number | null
+        }
+        Update: {
+          created_at?: string
+          id?: number
+          num?: number | null
         }
         Relationships: []
       }
@@ -77,6 +95,54 @@ export type Database = {
         }
         Relationships: []
       }
+      confirmations: {
+        Row: {
+          created_at: string
+          guests_count: number
+          id: string
+          name: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          guests_count?: number
+          id?: string
+          name: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          guests_count?: number
+          id?: string
+          name?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      convidados: {
+        Row: {
+          created_at: string
+          id: string
+          nome: string
+          quantidade_pessoas: number
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          nome: string
+          quantidade_pessoas?: number
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          nome?: string
+          quantidade_pessoas?: number
+          updated_at?: string
+        }
+        Relationships: []
+      }
       daily_stats: {
         Row: {
           created_at: string
@@ -100,6 +166,167 @@ export type Database = {
           home_visits?: number
           id?: string
           spreadsheets_processed?: number
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      drawn_numbers: {
+        Row: {
+          created_at: string
+          id: string
+          numero: number
+          participante_id: string | null
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          numero: number
+          participante_id?: string | null
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          numero?: number
+          participante_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "drawn_numbers_participante_id_fkey"
+            columns: ["participante_id"]
+            isOneToOne: false
+            referencedRelation: "participants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      messages_to_couple: {
+        Row: {
+          created_at: string
+          id: string
+          is_approved: boolean
+          message: string
+          sender_name: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          is_approved?: boolean
+          message: string
+          sender_name: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          is_approved?: boolean
+          message?: string
+          sender_name?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      participants: {
+        Row: {
+          bairro: string
+          created_at: string
+          id: string
+          nome: string
+          numero_sorteio: number
+          telefone: string
+          updated_at: string
+        }
+        Insert: {
+          bairro: string
+          created_at?: string
+          id?: string
+          nome: string
+          numero_sorteio: number
+          telefone: string
+          updated_at?: string
+        }
+        Update: {
+          bairro?: string
+          created_at?: string
+          id?: string
+          nome?: string
+          numero_sorteio?: number
+          telefone?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      ppt_pages: {
+        Row: {
+          content_css: string | null
+          content_html: string
+          created_at: string
+          file_size: number
+          id: string
+          is_published: boolean
+          original_filename: string
+          slides_count: number
+          slug: string
+          title: string
+          updated_at: string
+          views_count: number
+        }
+        Insert: {
+          content_css?: string | null
+          content_html: string
+          created_at?: string
+          file_size: number
+          id?: string
+          is_published?: boolean
+          original_filename: string
+          slides_count?: number
+          slug: string
+          title: string
+          updated_at?: string
+          views_count?: number
+        }
+        Update: {
+          content_css?: string | null
+          content_html?: string
+          created_at?: string
+          file_size?: number
+          id?: string
+          is_published?: boolean
+          original_filename?: string
+          slides_count?: number
+          slug?: string
+          title?: string
+          updated_at?: string
+          views_count?: number
+        }
+        Relationships: []
+      }
+      prizes: {
+        Row: {
+          ativo: boolean
+          created_at: string
+          descricao: string | null
+          id: string
+          nome: string
+          ordem: number
+          updated_at: string
+        }
+        Insert: {
+          ativo?: boolean
+          created_at?: string
+          descricao?: string | null
+          id?: string
+          nome: string
+          ordem?: number
+          updated_at?: string
+        }
+        Update: {
+          ativo?: boolean
+          created_at?: string
+          descricao?: string | null
+          id?: string
+          nome?: string
+          ordem?: number
           updated_at?: string
         }
         Relationships: []
@@ -144,6 +371,33 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
+      }
+      raffle_config: {
+        Row: {
+          ativo: boolean
+          created_at: string
+          id: string
+          max_participantes: number
+          nome_sorteio: string
+          updated_at: string
+        }
+        Insert: {
+          ativo?: boolean
+          created_at?: string
+          id?: string
+          max_participantes?: number
+          nome_sorteio?: string
+          updated_at?: string
+        }
+        Update: {
+          ativo?: boolean
+          created_at?: string
+          id?: string
+          max_participantes?: number
+          nome_sorteio?: string
+          updated_at?: string
+        }
+        Relationships: []
       }
       responses: {
         Row: {
@@ -296,6 +550,14 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      generate_random_participant_number: {
+        Args: Record<PropertyKey, never>
+        Returns: number
+      }
+      get_available_spots: {
+        Args: Record<PropertyKey, never>
+        Returns: number
+      }
       increment_home_visits: {
         Args: Record<PropertyKey, never>
         Returns: undefined
