@@ -10,7 +10,6 @@ interface ProtectedRouteProps {
 const ProtectedRoute = ({ children }: ProtectedRouteProps) => {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
-  const [isAdmin, setIsAdmin] = useState(false);
 
   useEffect(() => {
     const checkAuth = async () => {
@@ -18,10 +17,6 @@ const ProtectedRoute = ({ children }: ProtectedRouteProps) => {
       
       if (session?.user) {
         setUser(session.user);
-        
-        // Check if user is admin
-        const { data: adminCheck } = await supabase.rpc('is_admin');
-        setIsAdmin(adminCheck || false);
       }
       
       setLoading(false);
@@ -29,14 +24,11 @@ const ProtectedRoute = ({ children }: ProtectedRouteProps) => {
 
     checkAuth();
 
-    const { data: { subscription } } = supabase.auth.onAuthStateChange(async (event, session) => {
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
       if (session?.user) {
         setUser(session.user);
-        const { data: adminCheck } = await supabase.rpc('is_admin');
-        setIsAdmin(adminCheck || false);
       } else {
         setUser(null);
-        setIsAdmin(false);
       }
       setLoading(false);
     });
@@ -50,7 +42,7 @@ const ProtectedRoute = ({ children }: ProtectedRouteProps) => {
     </div>;
   }
 
-  if (!user || !isAdmin) {
+  if (!user) {
     return <Navigate to="/login" replace />;
   }
 

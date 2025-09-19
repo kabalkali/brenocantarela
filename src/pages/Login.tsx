@@ -43,34 +43,11 @@ const Login = () => {
           variant: "destructive",
         });
       } else {
-        // Check if user is admin
-        const { data: adminCheck, error: adminError } = await supabase
-          .rpc('is_admin');
-
-        if (adminError) {
-          toast({
-            title: "Erro de verificação",
-            description: "Não foi possível verificar permissões de administrador",
-            variant: "destructive",
-          });
-          return;
-        }
-
-        if (adminCheck) {
-          toast({
-            title: "Login realizado com sucesso",
-            description: "Bem-vindo ao dashboard!",
-          });
-          navigate('/dashboard');
-        } else {
-          // Sign out non-admin users
-          await supabase.auth.signOut();
-          toast({
-            title: "Acesso negado",
-            description: "Apenas administradores podem acessar o sistema",
-            variant: "destructive",
-          });
-        }
+        toast({
+          title: "Login realizado com sucesso",
+          description: "Bem-vindo ao dashboard!",
+        });
+        navigate('/dashboard');
       }
     } catch (error) {
       toast({
