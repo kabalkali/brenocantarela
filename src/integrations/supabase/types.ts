@@ -77,6 +77,27 @@ export type Database = {
         }
         Relationships: []
       }
+      categories: {
+        Row: {
+          created_at: string
+          id: string
+          name: string
+          order_index: number
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          name: string
+          order_index?: number
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          name?: string
+          order_index?: number
+        }
+        Relationships: []
+      }
       ceps: {
         Row: {
           cep: string
@@ -199,6 +220,30 @@ export type Database = {
           },
         ]
       }
+      hero_images: {
+        Row: {
+          created_at: string
+          id: string
+          image_url: string
+          order_index: number
+          title: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          image_url: string
+          order_index?: number
+          title: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          image_url?: string
+          order_index?: number
+          title?: string
+        }
+        Relationships: []
+      }
       messages_to_couple: {
         Row: {
           created_at: string
@@ -225,6 +270,41 @@ export type Database = {
           updated_at?: string
         }
         Relationships: []
+      }
+      movies: {
+        Row: {
+          category_id: string | null
+          created_at: string
+          download_url: string | null
+          id: string
+          image_url: string
+          title: string
+        }
+        Insert: {
+          category_id?: string | null
+          created_at?: string
+          download_url?: string | null
+          id?: string
+          image_url: string
+          title: string
+        }
+        Update: {
+          category_id?: string | null
+          created_at?: string
+          download_url?: string | null
+          id?: string
+          image_url?: string
+          title?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "movies_category_id_fkey"
+            columns: ["category_id"]
+            isOneToOne: false
+            referencedRelation: "categories"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       participants: {
         Row: {
@@ -301,6 +381,33 @@ export type Database = {
         }
         Relationships: []
       }
+      presentations: {
+        Row: {
+          content_html: string
+          created_at: string
+          id: string
+          pdf_url: string | null
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          content_html: string
+          created_at?: string
+          id?: string
+          pdf_url?: string | null
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          content_html?: string
+          created_at?: string
+          id?: string
+          pdf_url?: string | null
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       prizes: {
         Row: {
           ativo: boolean
@@ -327,6 +434,27 @@ export type Database = {
           id?: string
           nome?: string
           ordem?: number
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      profiles: {
+        Row: {
+          created_at: string
+          email: string | null
+          id: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          email?: string | null
+          id: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          email?: string | null
+          id?: string
           updated_at?: string
         }
         Relationships: []
@@ -430,6 +558,30 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
+      }
+      site_settings: {
+        Row: {
+          created_at: string
+          id: string
+          setting_key: string
+          setting_value: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          setting_key: string
+          setting_value: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          setting_key?: string
+          setting_value?: string
+          updated_at?: string
+        }
+        Relationships: []
       }
       whatsapp_auth_sessions: {
         Row: {
@@ -550,26 +702,11 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
-      generate_random_participant_number: {
-        Args: Record<PropertyKey, never>
-        Returns: number
-      }
-      get_available_spots: {
-        Args: Record<PropertyKey, never>
-        Returns: number
-      }
-      increment_home_visits: {
-        Args: Record<PropertyKey, never>
-        Returns: undefined
-      }
-      increment_spreadsheets_processed: {
-        Args: Record<PropertyKey, never>
-        Returns: undefined
-      }
-      is_admin: {
-        Args: Record<PropertyKey, never>
-        Returns: boolean
-      }
+      generate_random_participant_number: { Args: never; Returns: number }
+      get_available_spots: { Args: never; Returns: number }
+      increment_home_visits: { Args: never; Returns: undefined }
+      increment_spreadsheets_processed: { Args: never; Returns: undefined }
+      is_admin: { Args: never; Returns: boolean }
     }
     Enums: {
       [_ in never]: never
