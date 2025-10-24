@@ -86,18 +86,15 @@ export const getAllBriefings = async () => {
 
 // Enviar resposta
 export const submitResponse = async (briefingId: string, data: AnswerData) => {
-  const { data: response, error } = await supabase
+  const { error } = await supabase
     .from('responses')
     .insert({
       briefing_id: briefingId,
       answers: data.answers,
       respondent_email: data.respondent_email,
-    })
-    .select()
-    .single();
+    });
 
   if (error) throw error;
-  return response;
 };
 
 // Buscar respostas de um briefing
